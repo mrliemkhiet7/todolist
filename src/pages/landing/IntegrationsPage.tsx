@@ -9,60 +9,156 @@ const IntegrationsPage = () => {
       title: "Communication",
       description: "Stay connected with your team",
       integrations: [
-        { name: "Slack", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Get notifications and updates in Slack" },
-        { name: "Microsoft Teams", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Collaborate seamlessly with Teams" },
-        { name: "Discord", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Connect with your Discord community" },
-        { name: "Zoom", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Schedule and join meetings directly" }
+        { 
+          name: "Slack", 
+          icon: "💬",
+          description: "Get notifications and updates in Slack" 
+        },
+        { 
+          name: "Microsoft Teams", 
+          icon: "🏢",
+          description: "Collaborate seamlessly with Teams" 
+        },
+        { 
+          name: "Discord", 
+          icon: "🎮",
+          description: "Connect with your Discord community" 
+        },
+        { 
+          name: "Zoom", 
+          icon: "📹",
+          description: "Schedule and join meetings directly" 
+        }
       ]
     },
     {
       title: "Development",
       description: "Streamline your development workflow",
       integrations: [
-        { name: "GitHub", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Link commits and pull requests to tasks" },
-        { name: "GitLab", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Sync issues and merge requests" },
-        { name: "Bitbucket", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Track code changes and deployments" },
-        { name: "Jira", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Sync tickets and project data" }
+        { 
+          name: "GitHub", 
+          icon: "🐙",
+          description: "Link commits and pull requests to tasks" 
+        },
+        { 
+          name: "GitLab", 
+          icon: "🦊",
+          description: "Sync issues and merge requests" 
+        },
+        { 
+          name: "Bitbucket", 
+          icon: "🪣",
+          description: "Track code changes and deployments" 
+        },
+        { 
+          name: "Jira", 
+          icon: "🔷",
+          description: "Sync tickets and project data" 
+        }
       ]
     },
     {
       title: "Design",
       description: "Connect your design tools",
       integrations: [
-        { name: "Figma", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Attach designs to tasks and projects" },
-        { name: "Adobe Creative Cloud", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Link creative assets and files" },
-        { name: "Sketch", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Share designs and prototypes" },
-        { name: "InVision", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Connect prototypes and feedback" }
+        { 
+          name: "Figma", 
+          icon: "🎨",
+          description: "Attach designs to tasks and projects" 
+        },
+        { 
+          name: "Adobe Creative Cloud", 
+          icon: "🎭",
+          description: "Link creative assets and files" 
+        },
+        { 
+          name: "Sketch", 
+          icon: "💎",
+          description: "Share designs and prototypes" 
+        },
+        { 
+          name: "InVision", 
+          icon: "👁️",
+          description: "Connect prototypes and feedback" 
+        }
       ]
     },
     {
       title: "Productivity",
       description: "Enhance your productivity suite",
       integrations: [
-        { name: "Google Workspace", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Sync with Gmail, Drive, and Calendar" },
-        { name: "Microsoft 365", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Integrate with Office apps" },
-        { name: "Notion", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Connect your knowledge base" },
-        { name: "Evernote", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Link notes and documents" }
+        { 
+          name: "Google Workspace", 
+          icon: "🌐",
+          description: "Sync with Gmail, Drive, and Calendar" 
+        },
+        { 
+          name: "Microsoft 365", 
+          icon: "📊",
+          description: "Integrate with Office apps" 
+        },
+        { 
+          name: "Notion", 
+          icon: "📝",
+          description: "Connect your knowledge base" 
+        },
+        { 
+          name: "Evernote", 
+          icon: "🐘",
+          description: "Link notes and documents" 
+        }
       ]
     },
     {
       title: "Time Tracking",
       description: "Track time and manage resources",
       integrations: [
-        { name: "Toggl", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Automatic time tracking for tasks" },
-        { name: "Harvest", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Track billable hours and expenses" },
-        { name: "RescueTime", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Monitor productivity and focus" },
-        { name: "Clockify", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Free time tracking for teams" }
+        { 
+          name: "Toggl", 
+          icon: "⏱️",
+          description: "Automatic time tracking for tasks" 
+        },
+        { 
+          name: "Harvest", 
+          icon: "🌾",
+          description: "Track billable hours and expenses" 
+        },
+        { 
+          name: "RescueTime", 
+          icon: "⏰",
+          description: "Monitor productivity and focus" 
+        },
+        { 
+          name: "Clockify", 
+          icon: "🕐",
+          description: "Free time tracking for teams" 
+        }
       ]
     },
     {
       title: "Analytics",
       description: "Data and business intelligence",
       integrations: [
-        { name: "Google Analytics", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Track project performance metrics" },
-        { name: "Mixpanel", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Analyze user behavior and events" },
-        { name: "Tableau", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Create advanced data visualizations" },
-        { name: "Power BI", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=64&h=64&fit=crop", description: "Business intelligence and reporting" }
+        { 
+          name: "Google Analytics", 
+          icon: "📈",
+          description: "Track project performance metrics" 
+        },
+        { 
+          name: "Mixpanel", 
+          icon: "📊",
+          description: "Analyze user behavior and events" 
+        },
+        { 
+          name: "Tableau", 
+          icon: "📋",
+          description: "Create advanced data visualizations" 
+        },
+        { 
+          name: "Power BI", 
+          icon: "⚡",
+          description: "Business intelligence and reporting" 
+        }
       ]
     }
   ];
@@ -131,7 +227,7 @@ const IntegrationsPage = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-xl text-gray-600 mb-8"
+              className="text-xl lg:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -189,11 +285,7 @@ const IntegrationsPage = () => {
                       key={index}
                       className="card p-6 hover-lift text-center"
                     >
-                      <img 
-                        src={integration.logo} 
-                        alt={integration.name}
-                        className="w-12 h-12 mx-auto mb-4 rounded-lg"
-                      />
+                      <div className="text-4xl mb-4">{integration.icon}</div>
                       <h4 className="font-semibold text-gray-900 mb-2">{integration.name}</h4>
                       <p className="text-sm text-gray-600">{integration.description}</p>
                     </div>
@@ -300,17 +392,17 @@ const IntegrationsPage = () => {
                 
                 <div className="space-y-4">
                   <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-medium mb-2">Slack Notifications</h4>
+                    <h4 className="font-medium mb-2">💬 Slack Notifications</h4>
                     <p className="text-sm text-blue-100">Get notified when tasks are completed or deadlines approach</p>
                   </div>
                   
                   <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-medium mb-2">GitHub Integration</h4>
+                    <h4 className="font-medium mb-2">🐙 GitHub Integration</h4>
                     <p className="text-sm text-blue-100">Automatically create tasks from GitHub issues and PRs</p>
                   </div>
                   
                   <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-medium mb-2">Calendar Sync</h4>
+                    <h4 className="font-medium mb-2">📅 Calendar Sync</h4>
                     <p className="text-sm text-blue-100">Sync task deadlines with your Google Calendar</p>
                   </div>
                 </div>

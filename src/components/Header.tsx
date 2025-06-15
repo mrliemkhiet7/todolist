@@ -17,7 +17,10 @@ import TaskModal from './TaskModal';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('taskflow_theme');
+    return saved === 'dark';
+  });
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
@@ -25,6 +28,16 @@ const Header = () => {
   
   const { user, profile, logout } = useAuthStore();
   const { currentProject, tasks, fetchTasks } = useTaskStore();
+
+  useEffect(() => {
+    // Apply theme to document
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('taskflow_theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   useEffect(() => {
     // Mock notifications for demo
@@ -60,6 +73,10 @@ const Header = () => {
     console.log('Searching for:', query);
   };
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <>
       <header className="bg-white border-b border-gray-200 px-6 py-4">
@@ -91,7 +108,7 @@ const Header = () => {
 
             {/* Theme Toggle */}
             <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={toggleTheme}
               className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
             >
               {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Search, MoreHorizontal, Users, Calendar, CheckCircle, FolderOpen } from 'lucide-react';
 import { useTaskStore } from '../store/taskStore';
+import { useNavigate } from 'react-router-dom';
 import ProjectModal from './ProjectModal';
 
 const ProjectsPage = () => {
   const { projects, tasks, setCurrentProject, isLoading, error } = useTaskStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [showProjectModal, setShowProjectModal] = useState(false);
+  const navigate = useNavigate();
 
   const filteredProjects = projects.filter(project =>
     project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -25,6 +27,17 @@ const ProjectsPage = () => {
       inProgress: inProgressTasks.length,
       progress: projectTasks.length > 0 ? (completedTasks.length / projectTasks.length) * 100 : 0
     };
+  };
+
+  const handleViewTasks = (projectId: string) => {
+    setCurrentProject(projectId);
+    navigate('/dashboard');
+  };
+
+  const handleAddTask = (projectId: string) => {
+    setCurrentProject(projectId);
+    navigate('/dashboard');
+    // The task modal will be opened by the TasksPage component
   };
 
   if (error) {
@@ -151,11 +164,10 @@ const ProjectsPage = () => {
               return (
                 <motion.div
                   key={project.id}
-                  className="card p-6 hover-lift cursor-pointer"
+                  className="card p-6 hover-lift"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onClick={() => setCurrentProject(project.id)}
                 >
                   {/* Project Header */}
                   <div className="flex items-start justify-between mb-4">
@@ -223,10 +235,16 @@ const ProjectsPage = () => {
                   {/* Quick Actions */}
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <div className="flex items-center space-x-2">
-                      <button className="flex-1 btn-secondary text-sm py-2">
+                      <button 
+                        onClick={() => handleViewTasks(project.id)}
+                        className="flex-1 btn-secondary text-sm py-2"
+                      >
                         View Tasks
                       </button>
-                      <button className="btn-primary text-sm py-2 px-4 flex items-center space-x-1">
+                      <button 
+                        onClick={() => handleAddTask(project.id)}
+                        className="btn-primary text-sm py-2 px-4 flex items-center space-x-1"
+                      >
                         <Plus className="w-3 h-3" />
                         <span>Add Task</span>
                       </button>

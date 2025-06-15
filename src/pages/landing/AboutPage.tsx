@@ -56,32 +56,32 @@ const AboutPage = () => {
 
   const milestones = [
     {
-      year: "2020",
+      year: "Q2 2025",
       title: "Company Founded",
       description: "TaskFlow was founded with a vision to revolutionize team productivity."
     },
     {
-      year: "2021",
+      year: "Q3 2025",
       title: "First 1,000 Users",
       description: "Reached our first milestone of 1,000 active users within 6 months."
     },
     {
-      year: "2022",
+      year: "Q4 2025",
       title: "Series A Funding",
       description: "Raised $10M Series A to accelerate product development and team growth."
     },
     {
-      year: "2023",
+      year: "Q1 2026",
       title: "100,000 Users",
       description: "Crossed 100,000 users and launched enterprise features."
     },
     {
-      year: "2024",
+      year: "Q2 2026",
       title: "AI Integration",
       description: "Launched AI-powered features to enhance productivity and automation."
     },
     {
-      year: "2025",
+      year: "Q3 2026",
       title: "Global Expansion",
       description: "Expanding globally with offices in Europe and Asia."
     }

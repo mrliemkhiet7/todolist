@@ -18,10 +18,20 @@ import { useAuthStore } from '../store/authStore';
 import { useTaskStore } from '../store/taskStore';
 
 const SettingsPage = () => {
-  const { user, profile, updatePassword, isLoading, error, clearError } = useAuthStore();
+  const { user, profile, updatePassword, logout, isLoading, error, clearError } = useAuthStore();
   const { tasks, projects } = useTaskStore();
   const [activeTab, setActiveTab] = useState('profile');
   const [showApiKey, setShowApiKey] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('taskflow_theme') || 'light';
+  });
+  const [accentColor, setAccentColor] = useState(() => {
+    return localStorage.getItem('taskflow_accent_color') || '#3B82F6';
+  });
+  const [compactMode, setCompactMode] = useState(() => {
+    return localStorage.getItem('taskflow_compact_mode') === 'true';
+  });
   const [formData, setFormData] = useState({
     name: profile?.name || '',
     email: user?.email || '',
@@ -68,6 +78,59 @@ const SettingsPage = () => {
         newPassword: '',
         confirmPassword: '',
       }));
+    }
+  };
+
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme);
+    localStorage.setItem('taskflow_theme', newTheme);
+    
+    // Apply theme immediately
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (newTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      // System theme
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  };
+
+  const handleAccentColorChange = (color: string) => {
+    setAccentColor(color);
+    localStorage.setItem('taskflow_accent_color', color);
+    // Apply accent color to CSS variables
+    document.documentElement.style.setProperty('--primary-color', color);
+  };
+
+  const handleCompactModeChange = (enabled: boolean) => {
+    setCompactMode(enabled);
+    localStorage.setItem('taskflow_compact_mode', enabled.toString());
+    // Apply compact mode class
+    if (enabled) {
+      document.documentElement.classList.add('compact-mode');
+    } else {
+      document.documentElement.classList.remove('compact-mode');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm('Are you absolutely sure? This action cannot be undone.')) {
+      try {
+        // Clear all local data
+        localStorage.clear();
+        // Logout user
+        await logout();
+        alert('Account deleted successfully');
+      } catch (error) {
+        console.error('Error deleting account:', error);
+        alert('Failed to delete account. Please try again.');
+      }
     }
   };
 
@@ -273,12 +336,19 @@ const SettingsPage = () => {
             { id: 'light', label: 'Light', preview: 'bg-white border-2 border-gray-200' },
             { id: 'dark', label: 'Dark', preview: 'bg-gray-900 border-2 border-gray-700' },
             { id: 'system', label: 'System', preview: 'bg-gradient-to-r from-white to-gray-900 border-2 border-gray-300' },
-          ].map((theme) => (
-            <label key={theme.id} className="cursor-pointer">
-              <input type="radio" name="theme" value={theme.id} className="sr-only peer" defaultChecked={theme.id === 'light'} />
+          ].map((themeOption) => (
+            <label key={themeOption.id} className="cursor-pointer">
+              <input 
+                type="radio" 
+                name="theme" 
+                value={themeOption.id} 
+                className="sr-only peer" 
+                checked={theme === themeOption.id}
+                onChange={(e) => handleThemeChange(e.target.value)}
+              />
               <div className="p-4 border-2 border-gray-200 rounded-lg peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all">
-                <div className={`w-full h-20 rounded-md mb-3 ${theme.preview}`} />
-                <h4 className="font-medium text-gray-900">{theme.label}</h4>
+                <div className={`w-full h-20 rounded-md mb-3 ${themeOption.preview}`} />
+                <h4 className="font-medium text-gray-900">{themeOption.label}</h4>
               </div>
             </label>
           ))}
@@ -293,7 +363,10 @@ const SettingsPage = () => {
           ].map((color) => (
             <button
               key={color}
-              className="w-8 h-8 rounded-full border-2 border-gray-200 hover:scale-110 transition-transform"
+              onClick={() => handleAccentColorChange(color)}
+              className={`w-8 h-8 rounded-full border-2 hover:scale-110 transition-transform ${
+                accentColor === color ? 'border-gray-800' : 'border-gray-200'
+              }`}
               style={{ backgroundColor: color }}
             />
           ))}
@@ -309,7 +382,12 @@ const SettingsPage = () => {
               <p className="text-sm text-gray-500">Reduce spacing and padding for a more compact interface</p>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" />
+              <input 
+                type="checkbox" 
+                className="sr-only peer" 
+                checked={compactMode}
+                onChange={(e) => handleCompactModeChange(e.target.checked)}
+              />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
@@ -375,7 +453,10 @@ const SettingsPage = () => {
               <p className="text-sm text-red-700 mt-1">
                 Once you delete your account, there is no going back. Please be certain.
               </p>
-              <button className="mt-3 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+              <button 
+                onClick={handleDeleteAccount}
+                className="mt-3 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              >
                 Delete Account
               </button>
             </div>
